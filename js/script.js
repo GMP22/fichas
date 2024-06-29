@@ -8,18 +8,7 @@ obtenerInflucard();
 
 function obtenerInflucard(){
     // Lanzamos loader mientras estan cargando los datos
-    Swal.fire({
-        title: "Cargando perfil...",
-        width: 600,
-        padding: "3em",
-        color: "#716add",
-        background: "#fff",
-        backdrop: false,
-        showConfirmButton: true,
-        didOpen: () => {
-            Swal.showLoading();
-        }
-    });
+    mostrarLoader();
 
     // Abrimos conexion con la API y hacemos conexión con ella
     conexion.open("GET", urlInflucard, true);
@@ -35,6 +24,21 @@ function obtenerInflucard(){
     }
 }
 
+function mostrarLoader(){
+    Swal.fire({
+        title: "Cargando perfil...",
+        width: 600,
+        padding: "3em",
+        color: "#716add",
+        background: "#fff",
+        backdrop: false,
+        showConfirmButton: true,
+        didOpen: () => {
+            Swal.showLoading();
+        }
+    });
+}
+
 function crearInflucard(ficha){
 
     for (let index = 0; index < 5; index++) {
@@ -46,7 +50,8 @@ function crearInflucard(ficha){
 
         influcard.appendChild(datosPersonales);
         influcard.appendChild(resumenMetricas);
-        document.getElementsByClassName("contenedorMosaico")[0].appendChild(influcard);
+        document.getElementById("contenedorMosaico").appendChild(influcard);
+        
     }
 }
 
@@ -131,6 +136,9 @@ function agregarDatosPersonales(ficha, contenedor){
     fotoPerfil.appendChild(crearImagen(bandera, widthImagenPerfil));
     fotoPerfil.appendChild(crearTexto(claseVerInflucard, textoVerInflucard));
 
+    accionFotoPerfil(fotoPerfil);
+    
+
     nombreCuenta.appendChild(crearIconos(iconoInstagram))
     nombreCuenta.appendChild(crearTexto("",ficha.username))
 
@@ -152,6 +160,29 @@ function agregarDatosPersonales(ficha, contenedor){
     contenedor.appendChild(datosAdicionales);
 
     return contenedor;
+}
+
+function accionFotoPerfil(fotoFicha){
+    fotoFicha.addEventListener("click", function (e) {
+        mostrarLoader();
+        conexion.open("GET", urlInflucard, true);
+        conexion.send();
+        // Verificamos si la respuesta del servidor es correcta y procesamos la informacion
+        conexion.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                let fichaRecibida = JSON.parse(this.responseText);
+                perfilCompleto(fichaRecibida);
+                Swal.close();
+                let perfil = document.getElementById("perfilInflucard");
+                perfil.removeAttribute("class");
+                perfil.setAttribute("class", "cargado");
+            }
+        }
+    })
+}
+
+function perfilCompleto(fichaCompleta){
+    console.log(fichaCompleta)
 }
 
 function agregarResumenMetricas(ficha, contenedor){
