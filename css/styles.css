@@ -1,3 +1,121 @@
-h1{
-    color: aqua;
+* { padding: 0; margin: 0;}
+
+body{
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.influcard{
+    display: flex;
+    justify-content: center;
+    width: 20rem;
+    border: #818181 solid 0.5px;
+    border-radius: 6px;
+    box-shadow: 1px 2px 4px #c4c4c4;
+    padding: 5px;
+    flex-wrap: wrap;
+    font-size: 12px;
+}
+
+.datosPersonales{
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    text-align: center;
+}
+
+/*
+    Esto hace que el texto de intereses sea recortado por puntos suspensivos
+*/
+
+.datosAdicionales > p:nth-child(2){
+    width : 100px;
+    overflow:hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-top: 10px;
+}
+
+/*
+    Le da ancho al apartado de metricas
+*/
+.resumenMetricas{
+    flex: 1;
+    padding: 10px;
+}
+
+.contenedorMosaico{
+    display: flex;
+    flex-wrap: wrap;
+    width: 1000px;
+    background-color: rgb(236, 236, 236);
+}
+
+.resumenMetricas > p:nth-child(1){
+    font-weight: 900;
+}
+
+.nombreCuenta{
+    display: flex;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.nombreCuenta > p {
+    margin-left: 4px;
+}
+
+.fotoperfil{
+    position: relative;
+    opacity: 1;
+    border-top-left-radius: 15%;
+    border-top-right-radius: 35%;
+    border-bottom-left-radius: 35%;
+    border-bottom-right-radius: 15%;
+    border: #3FB9A7 solid 4px;
+    overflow: hidden;
+}
+
+.fotoperfil > img{
+    height: 100%;
+}
+
+.verInflucard {
+    max-width: 100%;
+    position: absolute;
+    opacity: 0;
+    transition: .5s ease;
+    z-index: 5;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+}
+
+.fotoperfil:hover > img{
+    opacity: 0.3;
+    background: rgba(80, 12, 34, 0.65);
+}
+  
+.fotoperfil:hover > .verInflucard {
+    opacity: 1;
+}
+  
+.metricas{
+    display: flex;
+    flex-direction: column;
+}
+
+.contenedorMetricas{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.tituloMetrica{
+    display: flex;
+}
+
+.tituloMetrica > p{
+    margin-left: 2px;
 }
