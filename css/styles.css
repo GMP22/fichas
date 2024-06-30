@@ -54,10 +54,44 @@ body{
     font-weight: 900;
 }
 
+@media only screen and (max-width: 430px) {
+    #contenedorMosaico{
+        display: flex;
+        flex-direction: column;
+        width: 400px;
+    }
+}
+
 .nombreCuenta{
     display: flex;
     margin-top: 10px;
     margin-bottom: 10px;
+}
+
+.audiencia{
+    display: flex;
+    justify-content: center;
+    justify-content: space-around;
+    background-color: wheat;
+    padding: 20px;
+}
+
+.contenedorVertical{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.nombreSeccion{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 3rem;
+    background-color: white;
+}
+
+.nombreSeccion > h4{
+    margin-left: 10px;
 }
 
 .nombreCuenta > p {
@@ -99,9 +133,6 @@ body{
     display: flex;
     flex-direction: column;
     align-items: self-end;
-}
-
-.opciones > .nombreCuenta{
 }
 
 .informacionPerfilSeleccionado{
@@ -217,34 +248,70 @@ body{
  height: 120px;
 }
 
-
-#chartdiv{
-    width: 500px;
-    height: 500px;
+#distribucion{
+    width: 100%;
+    height: 400px;
 }
 
 .restoInformacion{
     display: flex;
     height: 100vh;
     padding: 20px;
-    background-color: blue;
 }
 
 .seccion{
     flex: 1;
-    margin: 15px;
+   height: 100vh;
 }
 
-.seccion:nth-child(1){
-    background-color: red;
+.distribuciones{
+    display: flex;
 }
 
-.seccion:nth-child(2){
-    background-color: green;
-
+#distribucionGenero{
+    flex: 1;
+    height: 300px;
+}
+#distribucionPais{
+    flex: 1;
+    height: 300px;
 }
 
-.seccion:nth-child(3){
-    background-color: yellow;
+#leyendaGrafica{
+    display: flex;
 }
 
+#leyendaGrafica > p{
+    padding: 10px;
+}
+
+#distribucionTerritorios{
+    width: 100%;
+    height: 400px;
+}
+
+#franjaHoraria{
+    width: 100%;
+    height: 200px;
+}
+
+.metricasDesempenyo{
+    height: 100px;
+}
+
+.impresiones > .contenedorMetricas:nth-child(2){
+    justify-content: space-evenly;
+}
+
+.reproducciones > .contenedorMetricas:nth-child(2){
+    justify-content: space-evenly;
+}
+
+.engagement > .contenedorMetricas:nth-child(2){
+    justify-content: space-evenly;
+}
+
+#engagementSegunDia{
+    width: 100%;
+    height: 200px;
+}
