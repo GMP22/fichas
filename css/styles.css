@@ -75,6 +75,61 @@ body{
     overflow: hidden;
 }
 
+.cabecera{
+    width: 93vw;
+    display: flex;
+    padding: 50px;
+}
+
+.cabecera > div{
+    flex: 1;
+}
+
+.perfil{
+    display: flex;
+}
+
+.tripleR{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.opciones{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: self-end;
+}
+
+.opciones > .nombreCuenta{
+}
+
+.informacionPerfilSeleccionado{
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px;
+}
+
+.fotoPerfilSeleccionado{
+    position: relative;
+}
+
+.fotoPerfilSeleccionado > img:nth-child(1){
+    position: absolute;
+    top: -0.5rem;
+    left: -0.5rem;
+    z-index: 1;
+    border-radius: 100%;
+    overflow: hidden;
+}
+
+.fotoPerfilSeleccionado > img:nth-child(2){
+    position: relative;
+    border-radius: 100%;
+    border-bottom-right-radius: 35%;
+    overflow: hidden;
+}
+
 .fotoperfil > img{
     height: 100%;
 }
@@ -131,17 +186,65 @@ body{
     transition: .5s;
     top: 0;
     left: 0;
-    background-color: rgb(0, 255, 234);
+    background-color: white;
     height: 100vh;
     width: 100%;
 }
 
 .cerrado {
     opacity: 0;
+    display: none;
     transition: .5s ;
     top: 50%;
     left: 100%;
     height: 0vh;
     width: 0%;
+}
+
+#reach{
+ width: 120px;
+ height: 120px;
+}
+
+#relevance{
+ width: 120px;
+ height: 120px;
+}
+
+
+#resonance{
+ width: 120px;
+ height: 120px;
+}
+
+
+#chartdiv{
+    width: 500px;
+    height: 500px;
+}
+
+.restoInformacion{
+    display: flex;
+    height: 100vh;
+    padding: 20px;
+    background-color: blue;
+}
+
+.seccion{
+    flex: 1;
+    margin: 15px;
+}
+
+.seccion:nth-child(1){
+    background-color: red;
+}
+
+.seccion:nth-child(2){
+    background-color: green;
+
+}
+
+.seccion:nth-child(3){
+    background-color: yellow;
 }
 

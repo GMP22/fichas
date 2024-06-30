@@ -8,10 +8,15 @@
     <script type="module" src="js/script.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/fonts/notosans-sc.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/percent.js"></script>
 </head>
 <body>
     
-    <div id="contenedorMosaico">
+    <div id="contenedorMosaico" >
         <!---
         <div class="influcard">
             <div class="datosPersonales">
@@ -97,8 +102,66 @@
     </div>
 
     <div id="perfilInflucard" class="cerrado">
-        <h1>hola</h1>
-    </div>
+        <div class="cabecera">
+            
+            <div class="perfil">
 
+                <div class="fotoPerfilSeleccionado">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Instagram_logo_2022.svg/1000px-Instagram_logo_2022.svg.png" width="40" alt="">
+                    <img src="https://www.emca-online.eu/assets/flags/4x3/es.svg" width="110" alt="">
+                </div>
+
+                <div class="informacionPerfilSeleccionado">
+                    <h4>gracyvillarreal</h4>
+                    <div class="nombreCuenta">
+                        <i class="fab fa-instagram"></i>
+                        <p>gracyvillarreal</p> <!--Esto hay que cambiarlo a un <a href='....'>-->
+                    </div>
+                    <div class="nombreCuenta">
+                        <p><img src="https://www.emca-online.eu/assets/flags/4x3/es.svg" width="15" alt=""> ES - <i style="color: rgb(255, 81, 110);" class="fa-solid fa-venus"></i> Mujer, 32 Años</p>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div class="tripleR">
+                <div id="reach"></div>
+                <div id="relevance"></div>
+                <div id="resonance"></div>
+            </div>
+
+            <div class="opciones">
+                <div class="nombreCuenta">
+                    <i class="fab fa-instagram"></i>
+                    <p>Salir</p> <!--Esto hay que cambiarlo a un <a href='....'>-->
+                </div>
+                <div class="nombreCuenta">
+                    <i class="fab fa-instagram"></i>
+                    <p>Descargar Influcard</p> <!--Esto hay que cambiarlo a un <a href='....'>-->
+                </div>
+                <div class="nombreCuenta">
+                    <i class="fab fa-instagram"></i>
+                    <p>Ver Perfil</p> <!--Esto hay que cambiarlo a un <a href='....'>-->
+                </div>
+                <p>Datos Actualizados xxx fecha</p>
+            </div>
+        </div>
+
+        <div class="restoInformacion">
+            <div class="seccion">
+
+                <div class="nombreCuenta">
+                    <i class="fab fa-instagram"></i>
+                    <p>AUDIENCIA</p>
+                </div>
+
+
+
+            </div>
+            <div class="seccion"></div>
+            <div class="seccion"></div>
+        </div>
+    </div>
 </body>
 </html>

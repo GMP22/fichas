@@ -1,6 +1,7 @@
 var conexion = new XMLHttpRequest();
 //var urlInflucard = 'https://ficha-2c8l.onrender.com/influcard';
 var urlInflucard = 'http://localhost:8080/influcard';
+var urlAgesArray = 'http://localhost:8080/ages_array';
 var enlacesBanderas = "https://www.emca-online.eu";
 var iconoInstagram = "fab fa-instagram";
 
@@ -40,7 +41,6 @@ function mostrarLoader(){
 }
 
 function crearInflucard(ficha){
-
     for (let index = 0; index < 5; index++) {
         let influcard = crearContenedor("influcard");
         let divPersonal = crearContenedor("datosPersonales");
@@ -57,7 +57,7 @@ function crearInflucard(ficha){
 
 function crearContenedor(claseContenedor){
     let div = document.createElement("div");
-    div.setAttribute("class", claseContenedor);
+    div.classList.add("class", claseContenedor);
     return div;
 }
 
@@ -72,7 +72,7 @@ function crearTexto(nombreClase, texto){
     let p = document.createElement("p");
 
     if (nombreClase != "") {
-        p.setAttribute("class", nombreClase);
+        p.classList.add("class", nombreClase);
     }
     
     if (texto != "") {
@@ -120,7 +120,9 @@ function generoInfluencer(fichaGenero){
     }
     return genero;
 }
-
+    /*
+        Separar codigo por funciones
+    */
 function agregarDatosPersonales(ficha, contenedor){
     let textoVerInflucard = "Ver Influcard";
     let claseVerInflucard = "verInflucard";
@@ -137,7 +139,6 @@ function agregarDatosPersonales(ficha, contenedor){
     fotoPerfil.appendChild(crearTexto(claseVerInflucard, textoVerInflucard));
 
     accionFotoPerfil(fotoPerfil);
-    
 
     nombreCuenta.appendChild(crearIconos(iconoInstagram))
     nombreCuenta.appendChild(crearTexto("",ficha.username))
@@ -182,6 +183,10 @@ function accionFotoPerfil(fotoFicha){
 }
 
 function perfilCompleto(fichaCompleta){
+    tripleR(fichaCompleta.reach, "reach");
+    tripleR(fichaCompleta.relevance, "relevance");
+    tripleR(fichaCompleta.resonance, "resonance");
+
     console.log(fichaCompleta)
 }
 
@@ -192,7 +197,9 @@ function agregarResumenMetricas(ficha, contenedor){
 
     let metricas = crearContenedor("metricas");
     
-
+    /*
+        Esto se puede optimizar utilizando 1 funcion
+    */
     for (let index = 0; index < cantidadDeMetricas; index++) {
         let contenedorMetricas = crearContenedor("contenedorMetricas");
         let tituloMetrica = crearContenedor("tituloMetrica");
@@ -247,3 +254,81 @@ function agregarResumenMetricas(ficha, contenedor){
     return contenedor;
 }
 
+function coloresTripleR(id){
+    let color;
+    switch (id) {
+        case "reach":
+            color = 0x1469FF;
+        break;
+        case "relevance":
+            color = 0xFFBF14;
+        break;
+        case "resonance":
+            color = 0x0FFFE6;
+        break;
+    }
+    return color;
+}
+
+function tripleR(porcentajeRecibido, id){
+    let valorReal = Math.round(porcentajeRecibido);
+    let restoGrafica = 100-valorReal;
+    let root = am5.Root.new(id);
+    let colorGrafica = coloresTripleR(id);
+    let chart = root.container.children.push(
+    am5percent.PieChart.new(root, {
+        radius: am5.percent(50),
+        innerRadius: am5.percent(75)
+        })
+    );
+
+    root.setThemes([
+        am5themes_Animated.new(root)
+    ]);
+
+    let series = chart.series.push(
+        am5percent.PieSeries.new(root, {
+          name: "Series",
+          categoryField: "category",
+          valueField: "number",
+        })
+      );
+
+    var reachData = [{
+        category: "Alcance",
+        number: valorReal,
+        sliceSettings: { fill: am5.color(colorGrafica), stroke: am5.color(colorGrafica) }
+    },{
+        category: "Resto",
+        number: restoGrafica,
+        settings: { forceHidden: true },
+        sliceSettings: { fill: am5.color(0xdedede), stroke: am5.color(0xdedede) }
+    }];
+
+    series.labels.template.set("visible", false);
+    series.ticks.template.set("visible", false);
+
+    series.slices.template.setAll({
+        templateField: "sliceSettings"
+    });
+
+    series.children.push(am5.Label.new(root, {
+        centerX: am5.percent(50),
+        centerY: am5.percent(50),
+        text: valorReal + "%",
+        populateText: true,
+      }));
+
+      chart.children.unshift(am5.Label.new(root, {
+        text: id,
+        fontSize: 14,
+        fontWeight: "100",
+        textAlign: "center",
+        x: am5.percent(50),
+        centerX: am5.percent(50),
+        paddingTop: 0,
+        paddingBottom: 0,
+      }));
+
+    series.data.setAll(reachData);
+}
