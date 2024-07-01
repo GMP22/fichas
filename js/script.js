@@ -12,7 +12,7 @@ var iconoEngagement = "fa-solid fa-heart";
 var generoFemenino = "fa-solid fa-venus";
 var iconoOjo = "fa-solid fa-eye";
 var fakeFollower ="fa-solid fa-heart-pulse"
-var imagenInfluencer = "/assets/img/influencer.jpg";
+var imagenInfluencer = "assets/img/influencer.jpg";
 obtenerInflucard();
 
 function disposeRoot(divId) {
