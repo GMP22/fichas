@@ -1,6 +1,6 @@
 var conexion = new XMLHttpRequest();
-//var urlInflucard = 'https://ficha-2c8l.onrender.com/influcard';
-var urlInflucard = 'http://localhost:8080/influcard';
+var urlInflucard = 'https://ficha-2c8l.onrender.com/influcard';
+//var urlInflucard = 'http://localhost:8080/influcard';
 var urlAgesArray = 'http://localhost:8080/ages_array';
 var enlacesBanderas = "https://www.emca-online.eu";
 var iconoInstagram = "fab fa-instagram";
@@ -8,7 +8,11 @@ var iconoGrupo = "fa-solid fa-user-group";
 var iconoUser = "fa-solid fa-user";
 var iconoImpresiones = "fa-solid fa-fingerprint";
 var iconoReproducciones = "fa-solid fa-play";
-var iconoEngagement = "fa-solid fa-heart"
+var iconoEngagement = "fa-solid fa-heart";
+var generoFemenino = "fa-solid fa-venus";
+var iconoOjo = "fa-solid fa-eye";
+var fakeFollower ="fa-solid fa-heart-pulse"
+var imagenInfluencer = "/assets/img/influencer.jpg";
 obtenerInflucard();
 
 function disposeRoot(divId) {
@@ -55,7 +59,7 @@ function mostrarLoader(){
 }
 
 function crearInflucard(ficha){
-    for (let index = 0; index < 5; index++) {
+    for (let index = 0; index < 30; index++) {
         let influcard = crearContenedor("influcard");
         let divPersonal = crearContenedor("datosPersonales");
         let divMetricas = crearContenedor("resumenMetricas");
@@ -64,6 +68,8 @@ function crearInflucard(ficha){
 
         influcard.appendChild(datosPersonales);
         influcard.appendChild(resumenMetricas);
+        
+        influcard.style.background = "url(" + ficha.account_picture + "), rgba(0, 0, 0, 0.9)  no-repeat";
         document.getElementById("contenedorMosaico").appendChild(influcard);
         
     }
@@ -110,6 +116,21 @@ function crearCabeceraH3(nombreClase, texto){
     }
 
     return h3;
+}
+
+function crearCabeceraH2(nombreClase, texto){
+    let h2 = document.createElement("h2");
+
+    if (nombreClase != "") {
+        h2.classList.add("class", nombreClase);
+    }
+    
+    if (texto != "") {
+        let textoAgregar = document.createTextNode(texto);
+        h2.appendChild(textoAgregar);
+    }
+
+    return h2;
 }
 
 function crearIconos(iconoPorAgregar){
@@ -162,7 +183,7 @@ function agregarDatosPersonales(ficha, contenedor){
     let bandera = buscarBandera(ficha.country, ficha.top_countries_formated)
     let nombrePais = document.createTextNode(" "+ buscarNombrePais(ficha.country, ficha.top_countries_formated));
 
-    fotoPerfil.appendChild(crearImagen(bandera, widthImagenPerfil));
+    fotoPerfil.appendChild(crearImagen(imagenInfluencer, widthImagenPerfil));
     fotoPerfil.appendChild(crearTexto(claseVerInflucard, textoVerInflucard));
 
     accionFotoPerfil(fotoPerfil);
@@ -204,12 +225,14 @@ function accionFotoPerfil(fotoFicha){
                 let perfil = document.getElementById("perfilInflucard");
                 perfil.removeAttribute("class");
                 perfil.setAttribute("class", "cargado");
+                document.getElementById("contenedorMosaico").style.display = "none";
             }
         }
     })
 }
 
 function perfilCompleto(fichaCompleta){
+    crearPerfil(fichaCompleta);
     tripleR(fichaCompleta.reach, "reach");
     tripleR(fichaCompleta.relevance, "relevance");
     tripleR(fichaCompleta.resonance, "resonance");
@@ -235,6 +258,9 @@ function perfilCompleto(fichaCompleta){
         document.getElementsByClassName("impresiones")[0].innerHTML = "";
         document.getElementsByClassName("reproducciones")[0].innerHTML = "";
         document.getElementsByClassName("engagement")[0].innerHTML = "";
+        document.getElementById("imagenInfluencer").remove();
+        document.getElementsByClassName("informacionPerfilSeleccionado")[0].innerHTML = "";
+        document.getElementById("contenedorMosaico").style.display = "flex";
     })
 
     conexion.open("GET", urlAgesArray, true);
@@ -246,6 +272,27 @@ function perfilCompleto(fichaCompleta){
                 distribucionPorEdad(edades, fichaCompleta);
         }
     }
+}
+
+function crearPerfil(fichaCompleta){
+    let fotoPerfilSeleccionado = document.getElementsByClassName("fotoPerfilSeleccionado")[0];
+    let imagen = crearImagen(imagenInfluencer, 140);
+    let informacionPerfilSeleccionado = document.getElementsByClassName("informacionPerfilSeleccionado")[0];
+    let nombreCuenta = crearContenedor("nombreCuenta");
+    nombreCuenta.setAttribute("id", "informacionPerfilParte1");
+
+    informacionPerfilSeleccionado.appendChild(crearCabeceraH2("", fichaCompleta.username))
+    nombreCuenta.appendChild(crearIconos(iconoInstagram));
+    nombreCuenta.appendChild(crearTexto("", fichaCompleta.username));
+    informacionPerfilSeleccionado.appendChild(nombreCuenta);
+
+    let nombreCuenta2 = crearContenedor("nombreCuenta");
+    nombreCuenta2.setAttribute("id", "informacionPerfilPart2");
+    nombreCuenta2.innerHTML = '<p><img src="https://www.emca-online.eu/assets/flags/4x3/es.svg" width="15" alt=""> ES - <i style="color: rgb(255, 81, 110);" class="fa-solid fa-venus"></i> Mujer, 32 Años</p>';
+    informacionPerfilSeleccionado.appendChild(nombreCuenta2);
+    imagen.setAttribute("id", "imagenInfluencer")
+    fotoPerfilSeleccionado.appendChild(imagen)
+    
 }
 
 function datosActualizados(lastupdate){
@@ -425,9 +472,6 @@ function agregarResumenMetricas(ficha, contenedor){
 
     let metricas = crearContenedor("metricas");
     
-    /*
-        Esto se puede optimizar utilizando 1 funcion
-    */
     for (let index = 0; index < cantidadDeMetricas; index++) {
         let contenedorMetricas = crearContenedor("contenedorMetricas");
         let tituloMetrica = crearContenedor("tituloMetrica");
@@ -435,15 +479,15 @@ function agregarResumenMetricas(ficha, contenedor){
 
         switch (index) {
             case 0:
-                tituloMetrica.appendChild(crearIconos(iconoInstagram))
+                tituloMetrica.appendChild(crearIconos(iconoGrupo))
                 tituloMetrica.appendChild(crearTexto("", "Audiencia:"))
-                numeroMetrica.appendChild(crearTexto("", ficha.followers))
+                numeroMetrica.appendChild(crearTexto("", ficha.followers_formated))
                 contenedorMetricas.appendChild(tituloMetrica);
                 contenedorMetricas.appendChild(numeroMetrica);
             break;
         
             case 1:
-                tituloMetrica.appendChild(crearIconos(iconoInstagram))
+                tituloMetrica.appendChild(crearIconos(iconoUser))
                 tituloMetrica.appendChild(crearTexto("", "Fakes:"))
                 numeroMetrica.appendChild(crearTexto("", ficha.fakes))
                 contenedorMetricas.appendChild(tituloMetrica);
@@ -451,7 +495,7 @@ function agregarResumenMetricas(ficha, contenedor){
             break;
             
             case 2:
-                tituloMetrica.appendChild(crearIconos(iconoInstagram))
+                tituloMetrica.appendChild(crearIconos(iconoEngagement))
                 tituloMetrica.appendChild(crearTexto("", "Media Eng:"))
                 numeroMetrica.appendChild(crearTexto("", ficha.avg_engagement_formated))
                 contenedorMetricas.appendChild(tituloMetrica);
@@ -459,15 +503,15 @@ function agregarResumenMetricas(ficha, contenedor){
             break;
 
             case 3:
-                tituloMetrica.appendChild(crearIconos(iconoInstagram))
+                tituloMetrica.appendChild(crearIconos(fakeFollower))
                 tituloMetrica.appendChild(crearTexto("", "Eng Rate:"))
-                numeroMetrica.appendChild(crearTexto("", ficha.engagement_rate))
+                numeroMetrica.appendChild(crearTexto("", ficha.engagement_rate + "%"))
                 contenedorMetricas.appendChild(tituloMetrica);
                 contenedorMetricas.appendChild(numeroMetrica);
             break;
 
             case 4:
-                tituloMetrica.appendChild(crearIconos(iconoInstagram))
+                tituloMetrica.appendChild(crearIconos(iconoOjo))
                 tituloMetrica.appendChild(crearTexto("", "Impresiones:"))
                 numeroMetrica.appendChild(crearTexto("", ficha.avg_impressions_formated))
                 contenedorMetricas.appendChild(tituloMetrica);
