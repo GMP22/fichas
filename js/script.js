@@ -785,7 +785,7 @@ function distribucionPorGenero(infoMasculino, infoFemenino){
 
         series.slices.template.adapters.add("fill", function(fill, target) {
             if (target.dataItem.get("category") === "Mujeres") {
-                return am5.color(0xFF1493); // Azul para Dato 2
+                return am5.color(0xFF1493); 
             } 
             return fill;
         });
