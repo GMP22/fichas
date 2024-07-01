@@ -1,7 +1,8 @@
 var conexion = new XMLHttpRequest();
 var urlInflucard = 'https://ficha-2c8l.onrender.com/influcard';
+var urlAgesArray = 'http://ficha-2c8l.onrender.com/ages_array';
 //var urlInflucard = 'http://localhost:8080/influcard';
-var urlAgesArray = 'http://localhost:8080/ages_array';
+//var urlAgesArray = 'http://localhost:8080/ages_array';
 var enlacesBanderas = "https://www.emca-online.eu";
 var iconoInstagram = "fab fa-instagram";
 var iconoGrupo = "fa-solid fa-user-group";
