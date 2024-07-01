@@ -184,7 +184,7 @@ function agregarDatosPersonales(ficha, contenedor){
     let bandera = buscarBandera(ficha.country, ficha.top_countries_formated)
     let nombrePais = document.createTextNode(" "+ buscarNombrePais(ficha.country, ficha.top_countries_formated));
 
-    fotoPerfil.appendChild(crearImagen(imagenInfluencer, widthImagenPerfil));
+    fotoPerfil.appendChild(crearImagen(ficha.account_picture, widthImagenPerfil));
     fotoPerfil.appendChild(crearTexto(claseVerInflucard, textoVerInflucard));
 
     accionFotoPerfil(fotoPerfil);
@@ -277,7 +277,7 @@ function perfilCompleto(fichaCompleta){
 
 function crearPerfil(fichaCompleta){
     let fotoPerfilSeleccionado = document.getElementsByClassName("fotoPerfilSeleccionado")[0];
-    let imagen = crearImagen(imagenInfluencer, 140);
+    let imagen = crearImagen(fichaCompleta.account_picture, 140);
     let informacionPerfilSeleccionado = document.getElementsByClassName("informacionPerfilSeleccionado")[0];
     let nombreCuenta = crearContenedor("nombreCuenta");
     nombreCuenta.setAttribute("id", "informacionPerfilParte1");
